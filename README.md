@@ -154,4 +154,5 @@ Tüm değerler CSS değişkenidir (`--lu-*`) ve `laurel.tokens` katmanındadır;
 
 ## Lisans
 
-[GNU General Public License v3.0](./LICENSE) — © Berke İnselman / INSLMN Software Solutions & Experience Consultancy.
+[MIT](./LICENSE) — © 2026 Berke İnselman / INSLMN Software Solutions & Experience Consultancy.
+Ticari ve kapalı kaynak projeler dahil, telif bildirimini koruyarak özgürce kullanabilir, değiştirebilir ve dağıtabilirsiniz.

@@ -2,7 +2,7 @@
 
 ## 1.0.0 — 2026-10-21
 
-İlk sürüm.
+İlk sürüm. Lisans: MIT.
 
 - Palet (Obsidian, Stone White, Steel Blue, Antique Gold) ve klasik durum pigmentleri; Dies (gündüz) / Nox (gece) temaları
 - `@layer laurel.*` katmanlı CSS: reset, token, temel, bileşen, süsleme, yardımcı

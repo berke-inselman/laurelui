@@ -53,6 +53,7 @@ export function Dialog({
   const mounted = useSyncExternalStore(subscribeNoop, () => true, () => false);
   const panelRef = useRef<HTMLDivElement>(null);
   const onCloseRef = useRef(onClose);
+  const restoreRef = useRef<HTMLElement | null>(null);
   const titleId = useId();
 
   useEffect(() => {
@@ -61,8 +62,11 @@ export function Dialog({
 
   useEffect(() => {
     if (!open || !mounted) return;
-    const previous = document.activeElement as HTMLElement | null;
     const panel = panelRef.current;
+    // Açan öğe: odak zaten diyalogdaysa (StrictMode'da efektin ikinci çalışması) önceki kayıt korunur
+    const active = document.activeElement as HTMLElement | null;
+    const previous = panel?.contains(active) ? restoreRef.current : active;
+    restoreRef.current = previous;
     // autoFocus ile içeride bir alan zaten odaktaysa dokunma; değilse formun ilk alanına, o da yoksa diyaloga odaklan
     if (!panel?.contains(document.activeElement)) {
       const target = initialFocus?.current
@@ -97,7 +101,12 @@ export function Dialog({
     document.addEventListener('keydown', onKey);
     return () => {
       document.removeEventListener('keydown', onKey);
-      if (previous && document.contains(previous)) previous.focus({ preventScroll: true });
+      // Odağı bir sonraki turda geri ver: kapatan tuş (Enter / Esc) açan düğmeyi yeniden tetiklemesin
+      // Yalnızca odak gerçekten kaybolduysa (diyalog kaldırıldı, odak body'ye düştü) geri ver
+      window.setTimeout(() => {
+        const lost = !document.activeElement || document.activeElement === document.body;
+        if (lost && previous && document.contains(previous)) previous.focus({ preventScroll: true });
+      }, 0);
     };
   }, [open, mounted, initialFocus]);
 

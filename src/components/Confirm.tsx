@@ -60,11 +60,16 @@ function ConfirmPanel({ req }: { req: ConfirmRequest }) {
   const [typed, setTyped] = useState('');
   const confirmRef = useRef<HTMLButtonElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const restoreRef = useRef<HTMLElement | null>(null);
   const titleId = useId();
   const matches = !req.requireText || upper(typed) === upper(req.requireText);
 
   useEffect(() => {
-    const previous = document.activeElement as HTMLElement | null;
+    // Açan öğe: odak zaten penceredeyse (StrictMode'da efektin ikinci çalışması) önceki kayıt korunur
+    const active = document.activeElement as HTMLElement | null;
+    const previous = panelRef.current?.contains(active) ? restoreRef.current : active;
+    restoreRef.current = previous;
     (req.requireText ? inputRef.current : confirmRef.current)?.focus();
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -76,14 +81,19 @@ function ConfirmPanel({ req }: { req: ConfirmRequest }) {
     window.addEventListener('keydown', onKey, true);
     return () => {
       window.removeEventListener('keydown', onKey, true);
-      if (previous && document.contains(previous)) previous.focus({ preventScroll: true });
+      // Odağı bir sonraki turda geri ver: kapatan tuş olayı açan düğmeye ulaşmasın
+      // Yalnızca odak gerçekten kaybolduysa (pencere kaldırıldı, odak body'ye düştü) geri ver
+      window.setTimeout(() => {
+        const lost = !document.activeElement || document.activeElement === document.body;
+        if (lost && previous && document.contains(previous)) previous.focus({ preventScroll: true });
+      }, 0);
     };
   }, [req.requireText]);
 
   const Icon = danger ? IconAlert : IconHelp;
   return (
     <div className="lu-dialog-backdrop lu-confirm-backdrop" onMouseDown={(e) => e.target === e.currentTarget && settle(false)}>
-      <div className={cx('lu-dialog lu-confirm', danger && 'lu-confirm--danger')} role="alertdialog" aria-modal="true" aria-labelledby={titleId}>
+      <div ref={panelRef} className={cx('lu-dialog lu-confirm', danger && 'lu-confirm--danger')} role="alertdialog" aria-modal="true" aria-labelledby={titleId}>
         <span className="lu-confirm-icon"><Icon size={22} /></span>
         <h3 id={titleId} className="lu-confirm-title">{req.title ?? (danger ? 'Emin misiniz?' : 'Onaylıyor musunuz?')}</h3>
         <p className="lu-confirm-message">{req.message}</p>
@@ -95,7 +105,11 @@ function ConfirmPanel({ req }: { req: ConfirmRequest }) {
             value={typed}
             onChange={(e) => setTyped(e.target.value)}
             onKeyDown={(e) => {
-              if (e.key === 'Enter' && matches) settle(true);
+              if (e.key === 'Enter' && matches) {
+                // Aynı Enter, odak geri döndüğünde açan düğmeyi yeniden tetiklemesin
+                e.preventDefault();
+                settle(true);
+              }
             }}
           />
         )}
