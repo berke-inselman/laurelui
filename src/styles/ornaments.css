@@ -1,0 +1,104 @@
+/* ==========================================================================
+   Laurel-UI — Süslemeler (Roma motifleri)
+   Hepsi saf CSS; görsel dosya yüklemez, GPU'yu yormaz.
+   ========================================================================== */
+
+@layer laurel.ornaments {
+  /* Kitabe yazısı: Trajan sütunundaki gibi büyük harf, geniş aralık.
+     Türkçe büyük harf dönüşümü (i → İ) için <html lang="tr"> yeterlidir. */
+  .lu-inscription {
+    font-family: var(--lu-font-display);
+    font-weight: 600;
+    letter-spacing: var(--lu-tracking-inscription);
+    text-transform: uppercase;
+  }
+  .lu-display { font-family: var(--lu-font-display); }
+
+  /* Roma rakamı */
+  .lu-numeral {
+    font-family: var(--lu-font-display);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--lu-gold-ink);
+    font-variant-numeric: lining-nums;
+  }
+
+  /* Menderes (meander) bandı: rengi --lu-meander-color, yüksekliği height ile */
+  .lu-meander {
+    display: block;
+    height: 10px;
+    background-color: var(--lu-meander-color);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M0 10.75H12M10.25 10.75V1.25H1.75V7.75H7.25V4.25H4.25' fill='none' stroke='%23000' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x left center / auto 100%;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M0 10.75H12M10.25 10.75V1.25H1.75V7.75H7.25V4.25H4.25' fill='none' stroke='%23000' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x left center / auto 100%;
+    opacity: 0.55;
+    pointer-events: none;
+  }
+  .lu-meander--faint { opacity: 0.22; }
+  .lu-meander--vertical {
+    width: 10px;
+    height: auto;
+    -webkit-mask-repeat: repeat-y;
+    mask-repeat: repeat-y;
+    -webkit-mask-size: 100% auto;
+    mask-size: 100% auto;
+  }
+
+  /* Mermer damarı: kabın arkasına çok hafif bir doku serer */
+  .lu-grain { position: relative; isolation: isolate; }
+  .lu-grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: var(--lu-grain);
+    background-size: 180px 180px;
+    opacity: var(--lu-grain-opacity);
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  /* Yivli sütun dokusu (ör. giriş ekranı yan paneli) */
+  .lu-fluted {
+    background-image:
+      repeating-linear-gradient(90deg,
+        rgba(255, 255, 255, 0.035) 0 1px,
+        transparent 1px 13px,
+        rgba(0, 0, 0, 0.12) 13px 14px,
+        transparent 14px 28px);
+  }
+
+  /* Altın kıl çizgi ayırıcılar */
+  .lu-rule-gold {
+    height: 1px;
+    border: 0;
+    background: linear-gradient(90deg, transparent, var(--lu-gold) 20%, var(--lu-gold) 80%, transparent);
+  }
+
+  /* Süslü ayırıcı: — · METİN · — */
+  .lu-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    color: var(--lu-gold-ink);
+    font-family: var(--lu-font-display);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .lu-divider::before,
+  .lu-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--lu-line-gold));
+  }
+  .lu-divider::after { background: linear-gradient(90deg, var(--lu-line-gold), transparent); }
+  .lu-divider-mark { display: inline-flex; color: var(--lu-gold); }
+
+  /* Kemer biçimi */
+  .lu-arch { border-radius: var(--lu-radius-arch); }
+
+  /* Defne çelengi SVG'si */
+  .lu-laurel { display: inline-block; color: var(--lu-gold); flex-shrink: 0; }
+}

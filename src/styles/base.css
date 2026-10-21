@@ -1,0 +1,174 @@
+/* ==========================================================================
+   Laurel-UI — Temel (reset + tipografi)
+   ========================================================================== */
+
+@layer laurel.reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    tab-size: 4;
+  }
+
+  img,
+  svg,
+  video,
+  canvas {
+    display: block;
+    max-width: 100%;
+  }
+  svg { flex-shrink: 0; }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button {
+    cursor: pointer;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+  }
+
+  input,
+  select,
+  textarea {
+    font: inherit;
+    color: inherit;
+  }
+
+  ul,
+  ol {
+    list-style: none;
+  }
+
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+}
+
+@layer laurel.base {
+  body {
+    background-color: var(--lu-canvas);
+    color: var(--lu-ink);
+    font-family: var(--lu-font-sans);
+    font-size: var(--lu-text-base);
+    line-height: 1.5;
+    font-variant-numeric: tabular-nums;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--lu-ink);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.012em;
+  }
+
+  ::selection {
+    background: var(--lu-gold-soft);
+    color: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--lu-accent);
+    outline-offset: 2px;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--lu-ink-3);
+    opacity: 1;
+  }
+
+  input[type='checkbox'],
+  input[type='radio'] {
+    accent-color: var(--lu-primary);
+    cursor: pointer;
+  }
+
+  kbd {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.15rem;
+    font-family: var(--lu-font-sans);
+    font-size: var(--lu-text-2xs);
+    font-weight: 700;
+    line-height: 1;
+    padding: 0.22rem 0.42rem;
+    border: 1px solid var(--lu-line);
+    border-bottom-width: 2px;
+    border-radius: var(--lu-radius-sm);
+    background: var(--lu-surface);
+    color: var(--lu-ink-2);
+    white-space: nowrap;
+  }
+
+  code {
+    font-family: var(--lu-font-mono);
+    font-size: 0.9em;
+  }
+
+  hr {
+    border: 0;
+    height: 1px;
+    background: var(--lu-line);
+  }
+
+  /* Kaydırma çubukları: ince, taş tonlu */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--lu-line-strong) transparent;
+  }
+  *::-webkit-scrollbar { width: 9px; height: 9px; }
+  *::-webkit-scrollbar-track { background: transparent; }
+  *::-webkit-scrollbar-thumb {
+    background: var(--lu-line-strong);
+    border-radius: 9px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  *::-webkit-scrollbar-thumb:hover { background-color: var(--lu-ink-3); }
+
+  [hidden] { display: none !important; }
+
+  /* Tema geçişi sırasında geçiş animasyonları kapalı (dairesel açılış tek başına oynar) */
+  html.lu-theme-transition *,
+  html.lu-theme-transition *::before,
+  html.lu-theme-transition *::after { transition: none !important; }
+  html.lu-theme-transition::view-transition-old(root),
+  html.lu-theme-transition::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+
+  /* Tema alt ağaçları: .lu-nox (gece) / .lu-dies (gündüz) kendi metin rengini taşır */
+  .lu-nox,
+  .lu-dies {
+    color: var(--lu-ink);
+  }
+}
+
+/* Hareket azaltma tercihi her şeyin üstündedir */
+@layer laurel.utilities {
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-delay: 0ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

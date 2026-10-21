@@ -1,0 +1,56 @@
+{
+  "name": "laurel-ui",
+  "version": "1.0.0",
+  "description": "Laurel-UI V1.0 — Antik Roma'dan esinlenen, Next.js (App Router) için React bileşen kütüphanesi",
+  "author": "Berke İnselman — INSLMN Software Solutions & Experience Consultancy",
+  "license": "GPL-3.0-only",
+  "homepage": "https://github.com/berke-inselman/laurelui#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/berke-inselman/laurelui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/berke-inselman/laurelui/issues"
+  },
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles.css": "./src/styles/laurel.css",
+    "./tokens.css": "./src/styles/tokens.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "peerDependencies": {
+    "next": ">=15.0.0",
+    "react": ">=19.0.0",
+    "react-dom": ">=19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "next": "^16.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "typescript": "^5"
+  },
+  "keywords": [
+    "nextjs",
+    "react",
+    "ui",
+    "design-system",
+    "components",
+    "laurel",
+    "roman"
+  ]
+}

@@ -1,0 +1,273 @@
+/* ==========================================================================
+   Laurel-UI V1.0 — Tasarım token'ları
+   --------------------------------------------------------------------------
+   Palet (oranlar kimliğin dengesidir):
+     Obsidian      #171C25  %45  ana kimlik ve güçlü yüzeyler
+     Stone White   #EDEBE5  %35  açık arka planlar
+     Steel Blue    #536779  %15  yardımcı grafikler, etkileşim vurgusu
+     Antique Gold  #B59A69  %5   premium vurgu detayları (asla geniş alan değil)
+
+   Klasik durum tonları (Roma pigmentleri):
+     Laurel   (defne yeşili)  başarı
+     Pompeii  (Pompeii kırmızısı) tehlike
+     Ochre    (aşı boyası)    uyarı
+     Tyrian   (imparator moru) özel / mor
+     Aqua     (su kemeri)      bilgi / camgöbeği
+
+   Temalar: "Dies" (gündüz, varsayılan) ve "Nox" (gece).
+   Etkinleştirme: <html data-theme="dark"> (veya .lu-nox sınıfı) → Nox.
+   Tüm token'lar `laurel.tokens` katmanındadır; uygulama katmansız
+   tanımlarla istediği token'ı ezebilir.
+   ========================================================================== */
+
+@layer laurel.tokens {
+  :root {
+    /* ---- Ham palet ---------------------------------------------------- */
+    --lu-obsidian: #171c25;
+    --lu-obsidian-950: #0e1117;
+    --lu-obsidian-900: #12161d;
+    --lu-obsidian-800: #1d2330;
+    --lu-obsidian-700: #262e3c;
+    --lu-obsidian-600: #323b4b;
+    --lu-obsidian-500: #434d5e;
+
+    --lu-stone: #edebe5;
+    --lu-stone-25: #fdfcfa;
+    --lu-stone-50: #faf9f6;
+    --lu-stone-100: #f3f1ec;
+    --lu-stone-200: #e6e3dc;
+    --lu-stone-300: #dcd7cd;
+    --lu-stone-400: #c9c2b5;
+    --lu-stone-500: #a9a294;
+
+    --lu-steel: #536779;
+    --lu-steel-200: #c3ccd5;
+    --lu-steel-300: #9db2c5;
+    --lu-steel-400: #7b8fa1;
+    --lu-steel-600: #455768;
+    --lu-steel-700: #384756;
+
+    --lu-gold: #b59a69;
+    --lu-gold-200: #e3d6bd;
+    --lu-gold-300: #c9ae7e;
+    --lu-gold-600: #8a6f3e;
+    --lu-gold-700: #6f5830;
+
+    --lu-laurel: #3d6b4f;
+    --lu-laurel-light: #8dbb9c;
+    --lu-pompeii: #a3392f;
+    --lu-pompeii-light: #e0857b;
+    --lu-ochre: #9a5f0e;
+    --lu-ochre-light: #e2a955;
+    --lu-tyrian: #74365f;
+    --lu-tyrian-light: #c995ba;
+    --lu-aqua: #2f6f78;
+    --lu-aqua-light: #7fb9c0;
+  }
+
+  :root {
+    /* ---- Tipografi ---------------------------------------------------- */
+    /* Uygulama next/font ile --font-laurel-sans / --font-laurel-display verir */
+    --lu-font-sans: var(--font-laurel-sans, 'Manrope'), ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    --lu-font-display: var(--font-laurel-display, 'Cinzel'), 'Trajan Pro', 'Optima', Georgia, 'Times New Roman', serif;
+    --lu-font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
+
+    --lu-text-2xs: 0.6875rem;
+    --lu-text-xs: 0.75rem;
+    --lu-text-sm: 0.8125rem;
+    --lu-text-md: 0.875rem;
+    --lu-text-base: 0.9375rem;
+    --lu-text-lg: 1.0625rem;
+    --lu-text-xl: 1.25rem;
+    --lu-text-2xl: 1.5rem;
+    --lu-text-3xl: 1.875rem;
+    --lu-text-4xl: 2.375rem;
+
+    --lu-tracking-inscription: 0.14em;   /* kitabe harf aralığı */
+    --lu-tracking-caps: 0.08em;
+
+    /* ---- Biçim: keski gibi net köşeler, kemer için tam yuvarlak ------- */
+    --lu-radius-xs: 3px;
+    --lu-radius-sm: 5px;
+    --lu-radius-md: 7px;
+    --lu-radius-lg: 10px;
+    --lu-radius-xl: 14px;
+    --lu-radius-full: 9999px;
+    --lu-radius-arch: 999px 999px var(--lu-radius-sm) var(--lu-radius-sm);
+
+    /* ---- Hareket ------------------------------------------------------ */
+    --lu-ease: cubic-bezier(0.2, 0, 0, 1);
+    --lu-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --lu-ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+    --lu-dur-fast: 140ms;
+    --lu-dur: 220ms;
+    --lu-dur-slow: 420ms;
+
+    /* ---- Ölçüler ------------------------------------------------------ */
+    --lu-control-sm: 32px;
+    --lu-control-md: 38px;
+    --lu-control-lg: 46px;
+  }
+
+  /* ---- Dies (gündüz) — varsayılan; .lu-dies bir alt ağacı gündüze sabitler */
+  :root,
+  .lu-dies {
+    /* ---- Anlamsal: yüzeyler ------------------------------------------- */
+    --lu-canvas: var(--lu-stone);          /* uygulama zemini */
+    --lu-surface: var(--lu-stone-50);      /* kart, panel */
+    --lu-surface-2: var(--lu-stone-100);   /* kart içi dolgu, tablo başlığı */
+    --lu-surface-3: var(--lu-stone-200);   /* çukur alan, ray, iz */
+    --lu-elevated: var(--lu-stone-25);     /* açılır menü, diyalog */
+    --lu-field: var(--lu-stone-25);        /* form alanı zemini */
+    --lu-row-hover: rgba(83, 103, 121, 0.055);
+    --lu-overlay: rgba(14, 17, 23, 0.46);  /* diyalog arkası */
+
+    /* Güçlü yüzey: kenar çubuğu, birincil düğme — her temada Obsidian kimliği */
+    --lu-strong: var(--lu-obsidian);
+    --lu-strong-2: var(--lu-obsidian-800);
+    --lu-strong-3: var(--lu-obsidian-700);
+    --lu-on-strong: var(--lu-stone);
+    --lu-on-strong-2: #aeb3ba;
+    --lu-on-strong-3: #7f8691;
+    --lu-strong-line: rgba(237, 235, 229, 0.09);
+
+    /* ---- Anlamsal: metin --------------------------------------------- */
+    --lu-ink: var(--lu-obsidian);
+    --lu-ink-2: #4b5462;
+    --lu-ink-3: #60666f;
+    --lu-ink-inverse: var(--lu-stone);
+
+    /* ---- Anlamsal: çizgiler ------------------------------------------- */
+    --lu-line: var(--lu-stone-300);
+    --lu-line-strong: var(--lu-stone-400);
+    --lu-line-gold: color-mix(in srgb, var(--lu-gold) 55%, transparent);
+
+    /* ---- Anlamsal: vurgu ---------------------------------------------- */
+    --lu-accent: var(--lu-steel);                 /* bağlantı, aktif, odak */
+    --lu-accent-hover: var(--lu-steel-600);
+    --lu-accent-soft: rgba(83, 103, 121, 0.11);
+    --lu-accent-contrast: var(--lu-stone);
+    --lu-ring: rgba(83, 103, 121, 0.28);
+    --lu-ring-gold: rgba(181, 154, 105, 0.45);
+
+    --lu-primary: var(--lu-obsidian);             /* birincil düğme zemini */
+    --lu-primary-hover: var(--lu-obsidian-700);
+    --lu-on-primary: var(--lu-stone);
+
+    --lu-gold-ink: var(--lu-gold-600);            /* açık zeminde altın yazı (AA) */
+    --lu-gold-soft: rgba(181, 154, 105, 0.16);
+
+    /* ---- Anlamsal: durum ---------------------------------------------- */
+    --lu-success: var(--lu-laurel);
+    --lu-success-soft: rgba(61, 107, 79, 0.11);
+    --lu-danger: var(--lu-pompeii);
+    --lu-danger-hover: #8c2f27;
+    --lu-danger-soft: rgba(163, 57, 47, 0.1);
+    --lu-warning: var(--lu-ochre);
+    --lu-warning-soft: rgba(154, 95, 14, 0.12);
+    --lu-violet: var(--lu-tyrian);
+    --lu-violet-soft: rgba(116, 54, 95, 0.1);
+    --lu-info: var(--lu-aqua);
+    --lu-info-soft: rgba(47, 111, 120, 0.11);
+    --lu-on-tone: var(--lu-stone-50);             /* dolu durum düğmesi yazısı */
+
+    /* Grafik dizisi (çizelgeler): Steel öncelikli, altın son vurgu */
+    --lu-chart-1: var(--lu-steel);
+    --lu-chart-2: var(--lu-obsidian-600);
+    --lu-chart-3: var(--lu-laurel);
+    --lu-chart-4: var(--lu-gold);
+    --lu-chart-5: var(--lu-tyrian);
+    --lu-chart-6: var(--lu-aqua);
+    --lu-chart-7: var(--lu-ochre);
+    --lu-chart-8: var(--lu-pompeii);
+
+    /* ---- Gölgeler: sıcak, düşük kontrastlı ---------------------------- */
+    --lu-shadow-xs: 0 1px 0 rgba(23, 28, 37, 0.04);
+    --lu-shadow-sm: 0 1px 2px rgba(23, 28, 37, 0.06), 0 1px 1px rgba(23, 28, 37, 0.03);
+    --lu-shadow-md: 0 2px 4px -1px rgba(23, 28, 37, 0.06), 0 10px 24px -12px rgba(23, 28, 37, 0.2);
+    --lu-shadow-lg: 0 4px 10px -2px rgba(23, 28, 37, 0.08), 0 28px 56px -22px rgba(23, 28, 37, 0.34);
+    --lu-shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+
+    /* ---- Doku: mermer damarı ve menderes (meander) -------------------- */
+    --lu-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.09 0 0 0 0 0.11 0 0 0 0 0.15 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    --lu-grain-opacity: 0.05;
+    --lu-meander-color: var(--lu-gold);
+
+    color-scheme: light;
+  }
+
+  /* ---- Nox (gece) ------------------------------------------------------ */
+  :root[data-theme='dark'],
+  .lu-nox {
+    --lu-canvas: var(--lu-obsidian);
+    --lu-surface: var(--lu-obsidian-800);
+    --lu-surface-2: #212836;
+    --lu-surface-3: var(--lu-obsidian-900);
+    --lu-elevated: var(--lu-obsidian-700);
+    --lu-field: #151a23;
+    --lu-row-hover: rgba(157, 178, 197, 0.06);
+    --lu-overlay: rgba(6, 8, 12, 0.62);
+
+    --lu-strong: var(--lu-obsidian-950);
+    --lu-strong-2: var(--lu-obsidian-900);
+    --lu-strong-3: var(--lu-obsidian-800);
+    --lu-strong-line: rgba(237, 235, 229, 0.07);
+
+    --lu-ink: var(--lu-stone);
+    --lu-ink-2: #aeb3ba;
+    --lu-ink-3: #8a909a;
+    --lu-ink-inverse: var(--lu-obsidian);
+
+    --lu-line: #2a3240;
+    --lu-line-strong: #3a4455;
+    --lu-line-gold: color-mix(in srgb, var(--lu-gold) 42%, transparent);
+
+    --lu-accent: var(--lu-steel-300);
+    --lu-accent-hover: #b6c7d6;
+    --lu-accent-soft: rgba(157, 178, 197, 0.13);
+    --lu-accent-contrast: var(--lu-obsidian);
+    --lu-ring: rgba(157, 178, 197, 0.32);
+    --lu-ring-gold: rgba(201, 174, 126, 0.42);
+
+    /* Gece: birincil düğme Stone White — obsidyen zeminde en güçlü yüzey */
+    --lu-primary: var(--lu-stone);
+    --lu-primary-hover: #ffffff;
+    --lu-on-primary: var(--lu-obsidian);
+
+    --lu-gold-ink: var(--lu-gold-300);
+    --lu-gold-soft: rgba(201, 174, 126, 0.14);
+
+    --lu-success: var(--lu-laurel-light);
+    --lu-success-soft: rgba(141, 187, 156, 0.13);
+    --lu-danger: var(--lu-pompeii-light);
+    --lu-danger-hover: #eb9b92;
+    --lu-danger-soft: rgba(224, 133, 123, 0.13);
+    --lu-warning: var(--lu-ochre-light);
+    --lu-warning-soft: rgba(226, 169, 85, 0.13);
+    --lu-violet: var(--lu-tyrian-light);
+    --lu-violet-soft: rgba(201, 149, 186, 0.14);
+    --lu-info: var(--lu-aqua-light);
+    --lu-info-soft: rgba(127, 185, 192, 0.13);
+    --lu-on-tone: var(--lu-obsidian);
+
+    --lu-chart-1: var(--lu-steel-300);
+    --lu-chart-2: var(--lu-stone-400);
+    --lu-chart-3: var(--lu-laurel-light);
+    --lu-chart-4: var(--lu-gold-300);
+    --lu-chart-5: var(--lu-tyrian-light);
+    --lu-chart-6: var(--lu-aqua-light);
+    --lu-chart-7: var(--lu-ochre-light);
+    --lu-chart-8: var(--lu-pompeii-light);
+
+    --lu-shadow-xs: 0 1px 0 rgba(0, 0, 0, 0.3);
+    --lu-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.42);
+    --lu-shadow-md: 0 2px 4px -1px rgba(0, 0, 0, 0.4), 0 12px 28px -12px rgba(0, 0, 0, 0.65);
+    --lu-shadow-lg: 0 4px 10px -2px rgba(0, 0, 0, 0.45), 0 30px 60px -20px rgba(0, 0, 0, 0.8);
+    --lu-shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+
+    --lu-grain-opacity: 0.07;
+    --lu-meander-color: var(--lu-gold-300);
+
+    color-scheme: dark;
+  }
+}

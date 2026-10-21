@@ -1,0 +1,15 @@
+/* ==========================================================================
+   Laurel-UI V1.0 — tek giriş noktası
+   import 'laurel-ui/styles.css' (Next.js kök layout'unda, uygulama CSS'inden önce)
+
+   Bütün kurallar `laurel.*` katmanlarındadır. Katmansız (sıradan) uygulama
+   CSS'i, seçici özgüllüğünden bağımsız olarak her zaman Laurel'i ezer.
+   ========================================================================== */
+
+@layer laurel.reset, laurel.tokens, laurel.base, laurel.components, laurel.ornaments, laurel.utilities;
+
+@import './tokens.css';
+@import './base.css';
+@import './components.css';
+@import './ornaments.css';
+@import './utilities.css';

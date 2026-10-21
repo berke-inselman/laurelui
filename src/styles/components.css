@@ -1,0 +1,1142 @@
+/* ==========================================================================
+   Laurel-UI — Bileşenler
+   Sınıf adları `lu-` önekli; değişkeler `--` ile (lu-btn--primary).
+   Bileşen içi ayarlanabilir değerler `--_` önekli yerel değişkenlerdir.
+   ========================================================================== */
+
+@layer laurel.components {
+
+  /* ------------------------------------------------------------------------
+     Düğme (Button)
+     ------------------------------------------------------------------------ */
+  .lu-btn {
+    --_bg: var(--lu-surface);
+    --_fg: var(--lu-ink);
+    --_bd: var(--lu-line);
+    --_bg-hover: var(--lu-surface-2);
+    --_fg-hover: var(--_fg);
+    --_bd-hover: var(--lu-line-strong);
+    --_shadow: var(--lu-shadow-xs);
+    --_h: var(--lu-control-md);
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: var(--_h);
+    padding: 0 1rem;
+    border: 1px solid var(--_bd);
+    border-radius: var(--lu-radius-md);
+    background: var(--_bg);
+    color: var(--_fg);
+    font-family: var(--lu-font-sans);
+    font-size: var(--lu-text-md);
+    font-weight: 650;
+    line-height: 1.2;
+    letter-spacing: 0.005em;
+    white-space: nowrap;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: var(--_shadow);
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color var(--lu-dur-fast) var(--lu-ease),
+      border-color var(--lu-dur-fast) var(--lu-ease),
+      color var(--lu-dur-fast) var(--lu-ease),
+      box-shadow var(--lu-dur) var(--lu-ease),
+      transform var(--lu-dur-fast) var(--lu-ease);
+  }
+  .lu-btn:hover:not(:disabled):not([aria-disabled='true']) {
+    background: var(--_bg-hover);
+    border-color: var(--_bd-hover);
+    color: var(--_fg-hover);
+  }
+  .lu-btn:active:not(:disabled):not([aria-disabled='true']) { transform: translateY(1px); }
+  .lu-btn:disabled,
+  .lu-btn[aria-disabled='true'] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .lu-btn:focus-visible { outline: 2px solid var(--lu-accent); outline-offset: 2px; }
+
+  /* Birincil: Obsidian yüzey, üzerine gelince altın varak çizgisi */
+  .lu-btn--primary {
+    --_bg: var(--lu-primary);
+    --_fg: var(--lu-on-primary);
+    --_bd: var(--lu-primary);
+    --_bg-hover: var(--lu-primary-hover);
+    --_bd-hover: var(--lu-primary-hover);
+    --_shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 1px 2px rgba(23, 28, 37, 0.18), 0 8px 16px -10px rgba(23, 28, 37, 0.55);
+  }
+  .lu-btn--primary::after {
+    content: '';
+    position: absolute;
+    left: 16%;
+    right: 16%;
+    bottom: -1px;
+    height: 1.5px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, transparent, var(--lu-gold), transparent);
+    transform: scaleX(0);
+    transition: transform var(--lu-dur-slow) var(--lu-ease-out);
+    pointer-events: none;
+  }
+  .lu-btn--primary:hover:not(:disabled)::after,
+  .lu-btn--primary:focus-visible::after { transform: scaleX(1); }
+
+  .lu-btn--secondary {
+    --_bg: var(--lu-surface-2);
+    --_bd: transparent;
+    --_bg-hover: var(--lu-surface-3);
+    --_bd-hover: transparent;
+    --_shadow: none;
+  }
+  .lu-btn--outline { /* varsayılan görünüm; açıkça istenebilsin diye */ }
+  .lu-btn--ghost {
+    --_bg: transparent;
+    --_bd: transparent;
+    --_bg-hover: var(--lu-surface-2);
+    --_bd-hover: transparent;
+    --_shadow: none;
+  }
+  .lu-btn--gold {
+    --_bg: var(--lu-gold);
+    --_fg: var(--lu-obsidian);
+    --_bd: var(--lu-gold);
+    --_bg-hover: var(--lu-gold-300);
+    --_bd-hover: var(--lu-gold-300);
+    --_shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 8px 18px -10px rgba(138, 111, 62, 0.8);
+  }
+  .lu-btn--danger,
+  .lu-btn--success,
+  .lu-btn--warning {
+    --_fg: var(--lu-on-tone);
+    --_shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 6px 14px -9px var(--_tone);
+    --_bg: var(--_tone);
+    --_bd: var(--_tone);
+    --_bg-hover: color-mix(in srgb, var(--_tone) 86%, var(--lu-ink));
+    --_bd-hover: var(--_bg-hover);
+  }
+  .lu-btn--danger { --_tone: var(--lu-danger); }
+  .lu-btn--success { --_tone: var(--lu-success); }
+  .lu-btn--warning { --_tone: var(--lu-warning); }
+  .lu-btn--danger-outline {
+    --_fg: var(--lu-danger);
+    --_bd: color-mix(in srgb, var(--lu-danger) 38%, var(--lu-line));
+    --_bg-hover: var(--lu-danger-soft);
+    --_bd-hover: var(--lu-danger);
+  }
+  .lu-btn--link {
+    --_bg: transparent;
+    --_bd: transparent;
+    --_bg-hover: transparent;
+    --_bd-hover: transparent;
+    --_fg: var(--lu-accent);
+    --_fg-hover: var(--lu-accent-hover);
+    --_shadow: none;
+    --_h: auto;
+    padding: 0;
+    font-weight: 650;
+  }
+  .lu-btn--link:hover:not(:disabled) { text-decoration: underline; text-underline-offset: 3px; }
+  .lu-btn--link:active:not(:disabled) { transform: none; }
+
+  /* Seçili / basılı (araç çubuğu düğmeleri) */
+  .lu-btn.active,
+  .lu-btn.is-active,
+  .lu-btn[aria-pressed='true'] {
+    --_bg: var(--lu-accent-soft);
+    --_bg-hover: var(--lu-accent-soft);
+    --_bd: var(--lu-accent);
+    --_bd-hover: var(--lu-accent);
+    --_fg: var(--lu-accent);
+  }
+
+  .lu-btn--sm {
+    --_h: var(--lu-control-sm);
+    padding: 0 0.75rem;
+    gap: 0.4rem;
+    font-size: var(--lu-text-sm);
+    border-radius: var(--lu-radius-sm);
+  }
+  .lu-btn--lg {
+    --_h: var(--lu-control-lg);
+    padding: 0 1.3rem;
+    font-size: var(--lu-text-base);
+    border-radius: var(--lu-radius-lg);
+  }
+  .lu-btn--block { display: flex; width: 100%; }
+  .lu-btn--icon { padding: 0; width: var(--_h); }
+  .lu-btn > .lu-spinner { --_size: 1em; }
+
+  /* ------------------------------------------------------------------------
+     İkon düğmesi
+     ------------------------------------------------------------------------ */
+  .lu-icon-btn {
+    --_size: var(--lu-control-md);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: var(--_size);
+    height: var(--_size);
+    border-radius: var(--lu-radius-md);
+    border: 1px solid transparent;
+    color: var(--lu-ink-2);
+    background: transparent;
+    cursor: pointer;
+    transition: background-color var(--lu-dur-fast) var(--lu-ease), color var(--lu-dur-fast) var(--lu-ease), border-color var(--lu-dur-fast) var(--lu-ease), transform var(--lu-dur-fast) var(--lu-ease);
+  }
+  .lu-icon-btn:hover:not(:disabled) {
+    background: var(--lu-surface-2);
+    border-color: var(--lu-line);
+    color: var(--lu-ink);
+  }
+  .lu-icon-btn:active:not(:disabled) { transform: scale(0.94); }
+  .lu-icon-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+  .lu-icon-btn--xs { --_size: 26px; border-radius: var(--lu-radius-sm); }
+  .lu-icon-btn--sm { --_size: 30px; border-radius: var(--lu-radius-sm); }
+  .lu-icon-btn--lg { --_size: var(--lu-control-lg); }
+  .lu-icon-btn--outline { border-color: var(--lu-line); background: var(--lu-surface); box-shadow: var(--lu-shadow-xs); }
+  .lu-icon-btn--danger:hover:not(:disabled) { color: var(--lu-danger); background: var(--lu-danger-soft); border-color: transparent; }
+
+  /* ------------------------------------------------------------------------
+     Kart
+     ------------------------------------------------------------------------ */
+  .lu-card {
+    position: relative;
+    background-color: var(--lu-surface);
+    border: 1px solid var(--lu-line);
+    border-radius: var(--lu-radius-lg);
+    box-shadow: var(--lu-shadow-inset), var(--lu-shadow-sm);
+    transition: border-color var(--lu-dur) var(--lu-ease), box-shadow var(--lu-dur) var(--lu-ease), transform var(--lu-dur) var(--lu-ease-out);
+  }
+  a.lu-card,
+  .lu-card--interactive { cursor: pointer; }
+  a.lu-card:hover,
+  .lu-card--interactive:hover {
+    border-color: var(--lu-line-strong);
+    box-shadow: var(--lu-shadow-inset), var(--lu-shadow-md);
+    transform: translateY(-2px);
+  }
+  /* Altın kenar: kartın üstünde ince varak çizgi */
+  .lu-card--gilded::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 1.25rem;
+    right: 1.25rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--lu-gold) 25%, var(--lu-gold) 75%, transparent);
+    pointer-events: none;
+  }
+  .lu-card--flat { box-shadow: none; }
+  .lu-card--sunken { background: var(--lu-surface-2); box-shadow: none; }
+  .lu-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.05rem 1.25rem;
+    border-bottom: 1px solid var(--lu-line);
+  }
+  .lu-card-title { font-size: var(--lu-text-lg); font-weight: 700; line-height: 1.3; }
+  .lu-card-subtitle { margin-top: 0.15rem; font-size: var(--lu-text-sm); color: var(--lu-ink-2); }
+  .lu-card-body { padding: 1.25rem; }
+  .lu-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    padding: 0.85rem 1.25rem;
+    border-top: 1px solid var(--lu-line);
+    background: var(--lu-surface-2);
+    border-radius: 0 0 calc(var(--lu-radius-lg) - 1px) calc(var(--lu-radius-lg) - 1px);
+  }
+
+  /* ------------------------------------------------------------------------
+     Rozet (Badge) — kitabe levhası gibi köşeli
+     ------------------------------------------------------------------------ */
+  .lu-badge {
+    --_tone: var(--lu-ink-2);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--lu-radius-xs);
+    border: 1px solid color-mix(in srgb, var(--_tone) 26%, transparent);
+    background: color-mix(in srgb, var(--_tone) 10%, transparent);
+    color: var(--_tone);
+    font-size: var(--lu-text-2xs);
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    line-height: 1.3;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+  .lu-badge--dot::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    flex-shrink: 0;
+  }
+  .lu-badge--neutral { --_tone: var(--lu-ink-2); background: var(--lu-surface-2); border-color: var(--lu-line); }
+  .lu-badge--accent { --_tone: var(--lu-accent); }
+  .lu-badge--success { --_tone: var(--lu-success); }
+  .lu-badge--danger { --_tone: var(--lu-danger); }
+  .lu-badge--warning { --_tone: var(--lu-warning); }
+  .lu-badge--violet { --_tone: var(--lu-violet); }
+  .lu-badge--info { --_tone: var(--lu-info); }
+  .lu-badge--gold { --_tone: var(--lu-gold-ink); border-color: var(--lu-line-gold); background: var(--lu-gold-soft); }
+  .lu-badge--solid { background: var(--_tone); border-color: var(--_tone); color: var(--lu-on-tone); }
+  .lu-badge--caps {
+    font-family: var(--lu-font-display);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* ------------------------------------------------------------------------
+     Formlar
+     ------------------------------------------------------------------------ */
+  .lu-field { display: flex; flex-direction: column; gap: 0.35rem; min-width: 0; }
+  .lu-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: var(--lu-text-sm);
+    font-weight: 650;
+    color: var(--lu-ink-2);
+  }
+  .lu-label-required::after { content: ' *'; color: var(--lu-danger); }
+  .lu-hint { display: flex; align-items: center; gap: 0.3rem; font-size: var(--lu-text-xs); color: var(--lu-ink-3); }
+  .lu-error-text { font-size: var(--lu-text-xs); font-weight: 600; color: var(--lu-danger); }
+
+  .lu-input {
+    width: 100%;
+    min-height: var(--lu-control-md);
+    padding: 0.5rem 0.8rem;
+    border: 1px solid var(--lu-line);
+    border-radius: var(--lu-radius-md);
+    background-color: var(--lu-field);
+    color: var(--lu-ink);
+    font-size: var(--lu-text-md);
+    line-height: 1.4;
+    box-shadow: inset 0 1px 1px rgba(23, 28, 37, 0.035);
+    transition: border-color var(--lu-dur-fast) var(--lu-ease), box-shadow var(--lu-dur-fast) var(--lu-ease), background-color var(--lu-dur-fast) var(--lu-ease);
+  }
+  .lu-input:hover:not(:focus):not(:disabled):not([readonly]) { border-color: var(--lu-line-strong); }
+  .lu-input:focus {
+    outline: none;
+    border-color: var(--lu-accent);
+    box-shadow: 0 0 0 3px var(--lu-ring);
+  }
+  .lu-input:disabled { opacity: 0.6; cursor: not-allowed; background-color: var(--lu-surface-2); }
+  .lu-input[aria-invalid='true'] { border-color: var(--lu-danger); }
+  .lu-input[aria-invalid='true']:focus { box-shadow: 0 0 0 3px var(--lu-danger-soft); }
+  textarea.lu-input { min-height: 88px; padding-top: 0.6rem; line-height: 1.5; resize: vertical; }
+  select.lu-input {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 2.2rem;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23536779' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+  }
+  .lu-input--sm { min-height: var(--lu-control-sm); padding: 0.3rem 0.6rem; font-size: var(--lu-text-sm); border-radius: var(--lu-radius-sm); }
+  .lu-input--lg { min-height: var(--lu-control-lg); padding: 0.65rem 1rem; font-size: var(--lu-text-base); border-radius: var(--lu-radius-lg); }
+  .lu-input--mono { font-family: var(--lu-font-mono); font-size: var(--lu-text-sm); }
+  .lu-input--num { text-align: right; font-variant-numeric: tabular-nums; }
+  .lu-input::-webkit-calendar-picker-indicator { cursor: pointer; opacity: 0.6; }
+  :root[data-theme='dark'] .lu-input::-webkit-calendar-picker-indicator,
+  .lu-nox .lu-input::-webkit-calendar-picker-indicator { filter: invert(1); }
+
+  /* Simgeli alan: <div class="lu-input-group"><svg/><input class="lu-input"/></div> */
+  .lu-input-group { position: relative; display: flex; align-items: center; min-width: 0; }
+  .lu-input-group > svg:first-child,
+  .lu-input-group > .lu-input-icon {
+    position: absolute;
+    left: 0.8rem;
+    color: var(--lu-ink-3);
+    pointer-events: none;
+    transition: color var(--lu-dur-fast) var(--lu-ease);
+    z-index: 1;
+  }
+  .lu-input-group > svg:first-child ~ .lu-input,
+  .lu-input-group > .lu-input-icon ~ .lu-input { padding-left: 2.4rem; }
+  .lu-input-group:focus-within > svg:first-child,
+  .lu-input-group:focus-within > .lu-input-icon { color: var(--lu-accent); }
+  .lu-input-affix {
+    position: absolute;
+    right: 0.35rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 30px;
+    height: 30px;
+    padding: 0 0.35rem;
+    border-radius: var(--lu-radius-sm);
+    color: var(--lu-ink-3);
+  }
+  button.lu-input-affix:hover { color: var(--lu-ink); background: var(--lu-surface-2); }
+  .lu-input-group:has(.lu-input-affix) .lu-input { padding-right: 2.6rem; }
+
+  .lu-check {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    font-size: var(--lu-text-md);
+    cursor: pointer;
+    user-select: none;
+  }
+  .lu-check input:not(.lu-switch) { width: 16px; height: 16px; margin-top: 0.12rem; flex-shrink: 0; }
+  .lu-check--card {
+    display: flex;
+    padding: 0.7rem 0.85rem;
+    border: 1px solid var(--lu-line);
+    border-radius: var(--lu-radius-md);
+    background: var(--lu-surface);
+    transition: border-color var(--lu-dur-fast) var(--lu-ease), background-color var(--lu-dur-fast) var(--lu-ease);
+  }
+  .lu-check--card:hover { border-color: var(--lu-line-strong); }
+  .lu-check--card:has(input:checked) { border-color: var(--lu-accent); background: var(--lu-accent-soft); }
+
+  /* Anahtar: seçiliyken Obsidian ray, altın düğme */
+  .lu-switch {
+    appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+    flex-shrink: 0;
+    width: 38px;
+    height: 22px;
+    border-radius: var(--lu-radius-full);
+    background: var(--lu-surface-3);
+    border: 1px solid var(--lu-line-strong);
+    cursor: pointer;
+    transition: background-color var(--lu-dur) var(--lu-ease), border-color var(--lu-dur) var(--lu-ease);
+  }
+  .lu-switch::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--lu-surface);
+    box-shadow: 0 1px 2px rgba(23, 28, 37, 0.3);
+    transition: transform var(--lu-dur) var(--lu-ease-spring), background-color var(--lu-dur) var(--lu-ease);
+  }
+  .lu-switch:checked { background: var(--lu-primary); border-color: var(--lu-primary); }
+  .lu-switch:checked::before { transform: translateX(16px); background: var(--lu-gold); }
+  .lu-switch:disabled { opacity: 0.5; cursor: not-allowed; }
+  .lu-switch:focus-visible { outline: 2px solid var(--lu-accent); outline-offset: 2px; }
+
+  /* ------------------------------------------------------------------------
+     Sekmeler ve bölümlü seçici
+     ------------------------------------------------------------------------ */
+  .lu-tabs {
+    display: flex;
+    align-items: flex-end;
+    gap: 1.4rem;
+    border-bottom: 1px solid var(--lu-line);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .lu-tab {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.7rem 0.1rem;
+    color: var(--lu-ink-2);
+    font-size: var(--lu-text-md);
+    font-weight: 650;
+    white-space: nowrap;
+    transition: color var(--lu-dur-fast) var(--lu-ease);
+  }
+  .lu-tab:hover { color: var(--lu-ink); }
+  .lu-tab::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 2px;
+    background: var(--lu-gold);
+    transform: scaleX(0);
+    transition: transform var(--lu-dur) var(--lu-ease-out);
+  }
+  .lu-tab[aria-selected='true'],
+  .lu-tab.active { color: var(--lu-ink); }
+  .lu-tab[aria-selected='true']::after,
+  .lu-tab.active::after { transform: scaleX(1); }
+
+  .lu-segmented {
+    display: inline-flex;
+    gap: 2px;
+    padding: 3px;
+    border-radius: var(--lu-radius-md);
+    background: var(--lu-surface-3);
+    border: 1px solid var(--lu-line);
+  }
+  .lu-segmented > button,
+  .lu-segmented > a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.32rem 0.75rem;
+    border-radius: var(--lu-radius-sm);
+    color: var(--lu-ink-2);
+    font-size: var(--lu-text-sm);
+    font-weight: 650;
+    white-space: nowrap;
+    transition: background-color var(--lu-dur-fast) var(--lu-ease), color var(--lu-dur-fast) var(--lu-ease), box-shadow var(--lu-dur-fast) var(--lu-ease);
+  }
+  .lu-segmented > :hover { color: var(--lu-ink); }
+  .lu-segmented > .active,
+  .lu-segmented > [aria-pressed='true'],
+  .lu-segmented > [aria-selected='true'] {
+    background: var(--lu-elevated);
+    color: var(--lu-ink);
+    box-shadow: var(--lu-shadow-sm), inset 0 -1.5px 0 var(--lu-gold);
+  }
+  .lu-segmented > button:active:not(:disabled) { transform: none; }
+  .lu-segmented--block { display: flex; }
+  .lu-segmented--block > * { flex: 1; justify-content: center; }
+
+  /* ------------------------------------------------------------------------
+     Tablo
+     ------------------------------------------------------------------------ */
+  .lu-table-wrap {
+    overflow: auto;
+    border: 1px solid var(--lu-line);
+    border-radius: var(--lu-radius-lg);
+    background: var(--lu-surface);
+  }
+  .lu-table { width: 100%; font-size: var(--lu-text-md); font-variant-numeric: tabular-nums; }
+  .lu-table th {
+    padding: 0.6rem 0.85rem;
+    background: var(--lu-surface-2);
+    border-bottom: 1px solid var(--lu-line);
+    color: var(--lu-ink-2);
+    font-family: var(--lu-font-display);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.11em;
+    text-align: left;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .lu-table td {
+    padding: 0.6rem 0.85rem;
+    border-bottom: 1px solid var(--lu-line);
+    vertical-align: middle;
+  }
+  .lu-table tbody tr:last-child td { border-bottom: 0; }
+  .lu-table tbody tr { transition: background-color var(--lu-dur-fast) var(--lu-ease); }
+  .lu-table tbody tr:hover { background: var(--lu-row-hover); }
+  .lu-table .num,
+  .lu-table th.num { text-align: right; white-space: nowrap; }
+  .lu-table td small { display: block; color: var(--lu-ink-3); font-size: var(--lu-text-xs); }
+  .lu-table--compact th,
+  .lu-table--compact td { padding: 0.4rem 0.6rem; }
+  .lu-table--sticky th { position: sticky; top: 0; z-index: 1; }
+
+  /* ------------------------------------------------------------------------
+     Diyalog
+     ------------------------------------------------------------------------ */
+  .lu-dialog-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: var(--lu-z-dialog, 1000);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: var(--lu-overlay);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    animation: lu-fade-in var(--lu-dur) var(--lu-ease);
+  }
+  .lu-dialog {
+    position: relative;
+    width: 100%;
+    max-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: var(--lu-radius-xl);
+    background: var(--lu-surface);
+    border: 1px solid var(--lu-line);
+    box-shadow: var(--lu-shadow-lg);
+    animation: lu-dialog-in var(--lu-dur-slow) var(--lu-ease-out);
+  }
+  .lu-dialog::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--lu-gold) 30%, var(--lu-gold) 70%, transparent);
+    opacity: 0.85;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .lu-dialog-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.15rem 1.5rem 1rem;
+    border-bottom: 1px solid var(--lu-line);
+  }
+  .lu-dialog-heading { display: flex; align-items: center; gap: 0.75rem; min-width: 0; }
+  .lu-dialog-title { font-size: 1.1rem; font-weight: 700; line-height: 1.25; }
+  .lu-dialog-subtitle { margin-top: 0.12rem; font-size: var(--lu-text-sm); color: var(--lu-ink-2); }
+  .lu-dialog-body { flex: 1; overflow-y: auto; padding: 1.25rem 1.5rem; }
+  .lu-dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.9rem 1.5rem;
+    border-top: 1px solid var(--lu-line);
+    background: var(--lu-surface-2);
+  }
+
+  /* Onay penceresi: dar, ortalı, kemerli simge */
+  .lu-confirm-backdrop { z-index: var(--lu-z-confirm, 3500); }
+  .lu-confirm {
+    width: min(420px, 100%);
+    padding: 1.9rem 1.6rem 1.5rem;
+    align-items: center;
+    text-align: center;
+  }
+  .lu-confirm-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 58px;
+    margin-bottom: 1rem;
+    border-radius: var(--lu-radius-arch);
+    color: var(--lu-gold-ink);
+    background: var(--lu-gold-soft);
+    border: 1px solid var(--lu-line-gold);
+    animation: lu-pop var(--lu-dur-slow) var(--lu-ease-spring) 60ms backwards;
+  }
+  .lu-confirm--danger .lu-confirm-icon {
+    color: var(--lu-danger);
+    background: var(--lu-danger-soft);
+    border-color: color-mix(in srgb, var(--lu-danger) 28%, transparent);
+  }
+  .lu-confirm-title { font-size: 1.12rem; font-weight: 700; margin-bottom: 0.45rem; }
+  .lu-confirm-message { margin-bottom: 1.3rem; font-size: var(--lu-text-md); color: var(--lu-ink-2); white-space: pre-line; }
+  .lu-confirm-input { margin-bottom: 1rem; text-align: center; font-weight: 650; letter-spacing: 0.05em; }
+  .lu-confirm-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; width: 100%; }
+
+  /* ------------------------------------------------------------------------
+     Menü (açılır liste)
+     ------------------------------------------------------------------------ */
+  .lu-menu {
+    min-width: 200px;
+    padding: 0.35rem;
+    border-radius: var(--lu-radius-lg);
+    border: 1px solid var(--lu-line);
+    background: var(--lu-elevated);
+    box-shadow: var(--lu-shadow-lg);
+    transform-origin: top right;
+    animation: lu-menu-in var(--lu-dur) var(--lu-ease-out);
+  }
+  .lu-menu-label {
+    padding: 0.5rem 0.6rem 0.3rem;
+    font-family: var(--lu-font-display);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--lu-ink-3);
+  }
+  .lu-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0.5rem 0.6rem;
+    border-radius: var(--lu-radius-sm);
+    color: var(--lu-ink);
+    font-size: var(--lu-text-md);
+    font-weight: 550;
+    text-align: left;
+    transition: background-color var(--lu-dur-fast) var(--lu-ease);
+  }
+  .lu-menu-item svg { color: var(--lu-ink-3); }
+  .lu-menu-item:hover:not(:disabled),
+  .lu-menu-item:focus-visible,
+  .lu-menu-item.active { background: var(--lu-surface-2); outline: none; }
+  .lu-menu-item:disabled { opacity: 0.45; cursor: default; }
+  .lu-menu-item--danger,
+  .lu-menu-item--danger svg { color: var(--lu-danger); }
+  .lu-menu-item--danger:hover:not(:disabled) { background: var(--lu-danger-soft); }
+  .lu-menu-sep { height: 1px; margin: 0.3rem 0.25rem; background: var(--lu-line); }
+
+  /* ------------------------------------------------------------------------
+     İpucu (Tooltip) — yalnızca CSS
+     ------------------------------------------------------------------------ */
+  .lu-tooltip { position: relative; display: inline-flex; }
+  .lu-tooltip-bubble {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 8px);
+    z-index: 60;
+    padding: 0.35rem 0.6rem;
+    border-radius: var(--lu-radius-sm);
+    background: var(--lu-strong);
+    color: var(--lu-on-strong);
+    font-size: var(--lu-text-xs);
+    font-weight: 600;
+    line-height: 1.3;
+    white-space: nowrap;
+    box-shadow: var(--lu-shadow-md);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translate(-50%, 4px);
+    transition: opacity var(--lu-dur-fast) var(--lu-ease), transform var(--lu-dur) var(--lu-ease-out), visibility var(--lu-dur-fast);
+  }
+  .lu-tooltip--bottom > .lu-tooltip-bubble { bottom: auto; top: calc(100% + 8px); transform: translate(-50%, -4px); }
+  .lu-tooltip:hover > .lu-tooltip-bubble,
+  .lu-tooltip:focus-within > .lu-tooltip-bubble {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+    transition-delay: 250ms;
+  }
+
+  /* ------------------------------------------------------------------------
+     Avatar — baş harfler kitabe harfleriyle
+     ------------------------------------------------------------------------ */
+  .lu-avatar {
+    --_size: 36px;
+    --_bg: var(--lu-steel);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: var(--_size);
+    height: var(--_size);
+    border-radius: 50%;
+    background: var(--_bg);
+    color: var(--lu-stone-50);
+    font-family: var(--lu-font-display);
+    font-size: calc(var(--_size) * 0.36);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    overflow: hidden;
+    user-select: none;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 0 0 1px rgba(23, 28, 37, 0.08);
+  }
+  .lu-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .lu-avatar--ring { box-shadow: 0 0 0 2px var(--lu-surface), 0 0 0 3.5px var(--lu-gold); }
+  .lu-avatar--arch { border-radius: var(--lu-radius-arch); }
+  .lu-avatar--square { border-radius: 28%; }
+
+  /* ------------------------------------------------------------------------
+     Yükleniyor: döner halka, iskelet, ilerleme
+     ------------------------------------------------------------------------ */
+  .lu-spinner {
+    --_size: 18px;
+    display: inline-block;
+    width: var(--_size);
+    height: var(--_size);
+    border-radius: 50%;
+    border: 2px solid color-mix(in srgb, currentColor 20%, transparent);
+    border-top-color: currentColor;
+    animation: lu-spin 0.8s linear infinite;
+    flex-shrink: 0;
+  }
+  .lu-spinner--gold { color: var(--lu-gold); }
+
+  .lu-skeleton {
+    display: block;
+    border-radius: var(--lu-radius-md);
+    background: linear-gradient(90deg, var(--lu-surface-3) 25%, var(--lu-surface-2) 50%, var(--lu-surface-3) 75%);
+    background-size: 200% 100%;
+    animation: lu-shimmer 1.4s linear infinite;
+  }
+
+  .lu-progress {
+    --_tone: var(--lu-accent);
+    position: relative;
+    height: 6px;
+    border-radius: var(--lu-radius-full);
+    background: var(--lu-surface-3);
+    overflow: hidden;
+  }
+  .lu-progress > span {
+    display: block;
+    height: 100%;
+    width: var(--value, 0%);
+    border-radius: inherit;
+    background: var(--_tone);
+    transition: width var(--lu-dur-slow) var(--lu-ease-out);
+  }
+  .lu-progress--gold > span { background: linear-gradient(90deg, var(--lu-gold-600), var(--lu-gold)); }
+  .lu-progress--success { --_tone: var(--lu-success); }
+  .lu-progress--danger { --_tone: var(--lu-danger); }
+  .lu-progress--warning { --_tone: var(--lu-warning); }
+  .lu-progress--indeterminate > span {
+    width: 38%;
+    animation: lu-indeterminate 1.2s var(--lu-ease) infinite;
+  }
+
+  /* ------------------------------------------------------------------------
+     İstatistik (KPI) — köşede soluk Roma rakamı
+     ------------------------------------------------------------------------ */
+  .lu-stat {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    min-width: 0;
+    padding: 1.1rem 1.25rem 1.15rem;
+    overflow: hidden;
+  }
+  .lu-stat-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--lu-font-display);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--lu-ink-2);
+  }
+  .lu-stat-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 30px;
+    border-radius: var(--lu-radius-arch);
+    color: var(--lu-gold-ink);
+    background: var(--lu-gold-soft);
+  }
+  .lu-stat-value {
+    font-size: 1.95rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: var(--lu-ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .lu-stat-foot { margin-top: auto; font-size: var(--lu-text-xs); color: var(--lu-ink-3); }
+  .lu-stat-foot b { color: var(--lu-ink); font-weight: 700; }
+  .lu-stat-numeral {
+    position: absolute;
+    right: 0.9rem;
+    top: 0.45rem;
+    font-family: var(--lu-font-display);
+    font-size: 2.6rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    color: var(--lu-gold);
+    opacity: 0.24;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .lu-delta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.15rem;
+    padding: 0.15rem 0.45rem;
+    border-radius: var(--lu-radius-xs);
+    font-size: var(--lu-text-xs);
+    font-weight: 700;
+    color: var(--lu-ink-3);
+    background: var(--lu-surface-2);
+  }
+  .lu-delta--up { color: var(--lu-success); background: var(--lu-success-soft); }
+  .lu-delta--down { color: var(--lu-danger); background: var(--lu-danger-soft); }
+
+  /* ------------------------------------------------------------------------
+     Boş durum — duvar nişi (kemerli) içinde simge
+     ------------------------------------------------------------------------ */
+  .lu-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 3rem 1.5rem;
+    text-align: center;
+  }
+  .lu-empty-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 66px;
+    margin-bottom: 0.55rem;
+    border-radius: var(--lu-radius-arch);
+    color: var(--lu-gold-ink);
+    background: linear-gradient(180deg, var(--lu-gold-soft), transparent 140%);
+    border: 1px solid var(--lu-line-gold);
+    animation: lu-pop var(--lu-dur-slow) var(--lu-ease-spring);
+  }
+  .lu-empty-icon--success { color: var(--lu-success); background: var(--lu-success-soft); border-color: color-mix(in srgb, var(--lu-success) 30%, transparent); }
+  .lu-empty-title { font-size: var(--lu-text-base); font-weight: 700; color: var(--lu-ink); }
+  .lu-empty-text { max-width: 44ch; font-size: var(--lu-text-md); color: var(--lu-ink-2); }
+  .lu-empty-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-top: 0.6rem; }
+
+  /* ------------------------------------------------------------------------
+     Uyarı kutusu (Alert)
+     ------------------------------------------------------------------------ */
+  .lu-alert {
+    --_tone: var(--lu-accent);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid color-mix(in srgb, var(--_tone) 26%, transparent);
+    border-left: 3px solid var(--_tone);
+    border-radius: var(--lu-radius-md);
+    background: color-mix(in srgb, var(--_tone) 7%, var(--lu-surface));
+    color: var(--lu-ink);
+    font-size: var(--lu-text-md);
+    line-height: 1.45;
+  }
+  .lu-alert > svg { color: var(--_tone); margin-top: 0.1rem; }
+  .lu-alert-body { flex: 1; min-width: 0; }
+  .lu-alert-title { font-weight: 700; color: var(--_tone); }
+  .lu-alert--success { --_tone: var(--lu-success); }
+  .lu-alert--danger { --_tone: var(--lu-danger); }
+  .lu-alert--warning { --_tone: var(--lu-warning); }
+  .lu-alert--violet { --_tone: var(--lu-violet); }
+  .lu-alert--info { --_tone: var(--lu-info); }
+  .lu-alert--gold { --_tone: var(--lu-gold-ink); }
+
+  /* ------------------------------------------------------------------------
+     Gezinti izi (breadcrumb) — Latin kitabelerindeki gibi orta nokta ayırıcı
+     ------------------------------------------------------------------------ */
+  .lu-breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    min-width: 0;
+    font-size: var(--lu-text-sm);
+    color: var(--lu-ink-3);
+  }
+  .lu-breadcrumb a { font-weight: 550; transition: color var(--lu-dur-fast) var(--lu-ease); }
+  .lu-breadcrumb a:hover { color: var(--lu-accent); }
+  .lu-breadcrumb-sep { color: var(--lu-gold); font-weight: 800; line-height: 1; }
+  .lu-breadcrumb [aria-current='page'] { color: var(--lu-ink); font-weight: 700; }
+
+  /* ------------------------------------------------------------------------
+     Sayfa başlığı
+     ------------------------------------------------------------------------ */
+  .lu-page-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem 1.5rem;
+    margin-bottom: 1.75rem;
+  }
+  .lu-page-header-main { flex: 1 1 320px; min-width: 0; }
+  .lu-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 0.45rem;
+    font-family: var(--lu-font-display);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--lu-gold-ink);
+  }
+  .lu-eyebrow::before { content: ''; width: 18px; height: 1px; background: currentColor; }
+  .lu-page-title {
+    font-family: var(--lu-font-display);
+    font-size: clamp(1.4rem, 1.1rem + 0.9vw, 1.85rem);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .lu-page-subtitle { margin-top: 0.4rem; max-width: 72ch; color: var(--lu-ink-2); }
+  .lu-page-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 0.6rem; }
+
+  .lu-section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--lu-font-display);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--lu-ink);
+  }
+
+  /* ------------------------------------------------------------------------
+     Bildirim (Toast)
+     ------------------------------------------------------------------------ */
+  .lu-toaster {
+    position: fixed;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    z-index: var(--lu-z-toast, 4000);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    width: min(380px, calc(100vw - 2rem));
+    pointer-events: none;
+  }
+  .lu-toast {
+    --_tone: var(--lu-accent);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    padding: 0.8rem 0.75rem 0.9rem 0.85rem;
+    border-radius: var(--lu-radius-lg);
+    border: 1px solid var(--lu-line);
+    border-left: 3px solid var(--_tone);
+    background: var(--lu-elevated);
+    box-shadow: var(--lu-shadow-lg);
+    pointer-events: auto;
+    animation: lu-toast-in var(--lu-dur-slow) var(--lu-ease-out);
+  }
+  .lu-toast.is-leaving { animation: lu-toast-out var(--lu-dur) var(--lu-ease) forwards; }
+  .lu-toast--success { --_tone: var(--lu-success); }
+  .lu-toast--danger,
+  .lu-toast--error { --_tone: var(--lu-danger); }
+  .lu-toast--warning { --_tone: var(--lu-warning); }
+  .lu-toast-icon { flex-shrink: 0; margin-top: 0.05rem; color: var(--_tone); }
+  .lu-toast-body { flex: 1; min-width: 0; }
+  .lu-toast-title { font-size: var(--lu-text-md); font-weight: 750; }
+  .lu-toast-message {
+    margin-top: 0.15rem;
+    max-height: 220px;
+    overflow-y: auto;
+    font-size: var(--lu-text-sm);
+    color: var(--lu-ink-2);
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+  }
+  .lu-toast-close {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: var(--lu-radius-sm);
+    color: var(--lu-ink-3);
+  }
+  .lu-toast-close:hover { color: var(--lu-ink); background: var(--lu-surface-2); }
+  .lu-toast-progress {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--lu-gold-600), var(--lu-gold));
+    transform-origin: left;
+    animation-name: lu-toast-progress;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+  }
+  @media (max-width: 640px) {
+    .lu-toaster { left: 1rem; right: 1rem; width: auto; top: calc(0.75rem + env(safe-area-inset-top)); bottom: auto; }
+  }
+
+  /* ------------------------------------------------------------------------
+     Gezinti öğeleri (kenar çubukları için)
+     ------------------------------------------------------------------------ */
+  .lu-nav { display: flex; flex-direction: column; gap: 2px; }
+  .lu-nav-label {
+    padding: 0.9rem 0.75rem 0.35rem;
+    font-family: var(--lu-font-display);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--lu-ink-3);
+  }
+  .lu-nav-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 36px;
+    padding: 0 0.75rem;
+    border-radius: var(--lu-radius-md);
+    color: var(--lu-ink-2);
+    font-size: var(--lu-text-md);
+    font-weight: 600;
+    transition: color var(--lu-dur-fast) var(--lu-ease), background-color var(--lu-dur-fast) var(--lu-ease);
+  }
+  .lu-nav-item:hover { color: var(--lu-ink); background: var(--lu-row-hover); }
+  .lu-nav-item[aria-current='page'],
+  .lu-nav-item.active { color: var(--lu-ink); background: var(--lu-accent-soft); }
+  .lu-nav-item[aria-current='page']::before,
+  .lu-nav-item.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 24%;
+    bottom: 24%;
+    width: 2px;
+    border-radius: 2px;
+    background: var(--lu-gold);
+  }
+
+  /* ------------------------------------------------------------------------
+     Kısayol tuşu satırı, çip
+     ------------------------------------------------------------------------ */
+  .lu-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.18rem 0.55rem;
+    border-radius: var(--lu-radius-full);
+    border: 1px solid var(--lu-line);
+    background: var(--lu-surface-2);
+    color: var(--lu-ink-2);
+    font-size: var(--lu-text-xs);
+    font-weight: 650;
+    white-space: nowrap;
+  }
+  .lu-chip--accent { color: var(--lu-accent); background: var(--lu-accent-soft); border-color: transparent; }
+  .lu-chip--gold { color: var(--lu-gold-ink); background: var(--lu-gold-soft); border-color: var(--lu-line-gold); }
+}
+
+/* --------------------------------------------------------------------------
+   Hareketler
+   -------------------------------------------------------------------------- */
+@keyframes lu-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes lu-rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes lu-pop { from { opacity: 0; transform: scale(0.7); } to { opacity: 1; transform: none; } }
+@keyframes lu-spin { to { transform: rotate(360deg); } }
+@keyframes lu-shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+@keyframes lu-dialog-in { from { opacity: 0; transform: translateY(14px) scale(0.98); } to { opacity: 1; transform: none; } }
+@keyframes lu-menu-in { from { opacity: 0; transform: translateY(-4px) scale(0.98); } to { opacity: 1; transform: none; } }
+@keyframes lu-toast-in { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: none; } }
+@keyframes lu-toast-out { to { opacity: 0; transform: translateX(16px); } }
+@keyframes lu-toast-progress { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+@keyframes lu-indeterminate { from { transform: translateX(-110%); } to { transform: translateX(280%); } }
