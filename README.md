@@ -150,6 +150,8 @@ Tüm değerler CSS değişkenidir (`--lu-*`) ve `laurel.tokens` katmanındadır;
 | Biçim | `--lu-radius-*`, `--lu-shadow-*`, `--lu-font-sans`, `--lu-font-display` |
 
 - Gece teması: `<html data-theme="dark">` (ThemeScript / ThemeProvider yönetir, ⌘/Ctrl + J kısayolu dahil).
+- Tema modu: `useTheme()` → `mode` (`'light' | 'dark' | 'system'`) ve `setMode(mode, event?)`. `'system'` işletim sistemi temasını canlı izler; kayıtlı tercih yokken varsayılan budur (`defaultMode`).
+- Geçiş animasyonu yöne göre değişir: geceye geçerken gece tıklanan noktadan yayılır, gündüze dönerken aynı noktaya çekilir. `prefers-reduced-motion` ya da `transition="none"` ile kapanır.
 - Bir bölümü her temada gece göstermek için (ör. kenar çubuğu): `class="lu-nox"`; gündüze sabitlemek için `lu-dies`.
 
 ## Lisans

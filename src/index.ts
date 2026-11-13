@@ -14,7 +14,7 @@ export { toRoman, fromRoman, romanYear } from './lib/roman';
 
 // Tema
 export { ThemeScript, themeScript, DEFAULT_THEME_KEY } from './theme/ThemeScript';
-export type { ThemeName, ThemeScriptOptions } from './theme/ThemeScript';
+export type { ThemeName, ThemeMode, ThemeScriptOptions } from './theme/ThemeScript';
 export { ThemeProvider, useTheme } from './theme/ThemeProvider';
 export type { ThemeProviderProps, PointerOrigin } from './theme/ThemeProvider';
 

@@ -150,6 +150,9 @@
   html.lu-theme-transition *::after { transition: none !important; }
   html.lu-theme-transition::view-transition-old(root),
   html.lu-theme-transition::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+  /* Gündüze dönüşte gece katmanı (eski görüntü) üstte kalır ve tıklanan noktaya çekilir */
+  html.lu-theme-to-light::view-transition-old(root) { z-index: 2; }
+  html.lu-theme-to-light::view-transition-new(root) { z-index: 1; }
 
   /* Tema alt ağaçları: .lu-nox (gece) / .lu-dies (gündüz) kendi metin rengini taşır */
   .lu-nox,
